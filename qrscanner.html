@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner - Attendance System</title>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+</head>
+<body>
+    <h2>Scan QR Code</h2>
+    <video id="preview" width="400" height="300"></video>
+    <p id="status">Scan a QR code...</p>
+
+    <script>
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+        scanner.addListener('scan', function (content) {
+            document.getElementById('status').innerText = "Scanned ID: " + content;
+
+            // Send scanned data to the backend
+            fetch('/scan_qr', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerText = data.message;
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        // Request camera access and start scanning
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);  // Use first camera
+            } else {
+                alert("No camera found!");
+            }
+        }).catch(function (e) {
+            console.error(e);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        input, textarea {
+            width: 85%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus {
+            border-color: #74ebd5;
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(116, 235, 213, 0.5);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .feedback-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .feedback-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Feedback Form</h2>
+        <input type="text" id="username" placeholder="Enter your name" required>
+        <textarea id="comment" placeholder="Enter your feedback" required></textarea>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+        <div class="feedback-list" id="feedbackList"></div>
+    </div>
+
+    <script>
+        function submitFeedback() {
+            let username = document.getElementById("username").value.trim();
+            let comment = document.getElementById("comment").value.trim();
+            let dateTime = new Date().toLocaleString();
+            
+            if (!username || !comment) {
+                alert("Please enter your name and feedback!");
+                return;
+            }
+            
+            let feedbackList = document.getElementById("feedbackList");
+            let feedbackItem = document.createElement("div");
+            feedbackItem.classList.add("feedback-item");
+            feedbackItem.innerHTML = `
+                <strong>${username}</strong> <small>(${dateTime})</small>
+                <p>${comment}</p>
+            `;
+            feedbackList.prepend(feedbackItem);
+            
+            document.getElementById("username").value = "";
+            document.getElementById("comment").value = "";
+        }
+    </script>
+</body>
+</html>

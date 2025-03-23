@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> THIRD FLOOR </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .block-container {
+            display: grid;
+            grid-template-columns: 100px 100px;
+            grid-template-rows: repeat(10, 100px);
+            gap: 125px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .classroom {
+            width: 200px;
+            height: 100px;
+            background-color: lightgray;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+        .occupied {
+            background-color: green;
+            color: white;
+        }
+        .vacant {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2> THIRD FLOOR</h2>
+    <div class="block-container" id="classrooms"></div>
+
+    <script>
+        const classroomsContainer = document.getElementById("classrooms");
+        const roomNames = [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18","19" , "20"
+        ];
+        
+        // Create classrooms
+        for (let i = 0; i < roomNames.length; i++) {
+            const classroom = document.createElement("div");
+            classroom.classList.add("classroom", "vacant");
+            classroom.dataset.roomNumber = roomNames[i];
+            classroom.textContent = `${roomNames[i]}\nOFF`;
+            
+            classroom.addEventListener("click", () => toggleOccupancy(classroom));
+            classroomsContainer.appendChild(classroom);
+        }
+        
+        function toggleOccupancy(classroom) {
+            if (classroom.classList.contains("vacant")) {
+                classroom.classList.remove("vacant");
+                classroom.classList.add("occupied");
+                classroom.textContent = `${classroom.dataset.roomNumber}\nON`;
+            } else {
+                classroom.classList.remove("occupied");
+                classroom.classList.add("vacant");
+                classroom.textContent = `${classroom.dataset.roomNumber}\nOFF`;
+            }
+        }
+    </script>
+</body>
+</html>

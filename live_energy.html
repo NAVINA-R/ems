@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Energy Management</title>
+    <link rel="stylesheet" href="style3.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Campus Energy Management Dashboard</h1>
+
+        <!-- Peak Hours Display -->
+        <div id="peak-hours" class="peak-hours-box">Loading peak hour data...</div>
+
+        <h1>ENERGY CONSUMPTION STATISTICS</h1>
+        
+        <h2>Energy Distribution (Pie Chart)</h2>
+        <canvas id="energyPieChart"></canvas>
+        
+        <h2>Energy Consumption at Different Hours</h2>
+        <canvas id="energyBarChart"></canvas>
+        
+        <h2>Energy Usage by Building (Stacked Bar Chart)</h2>
+        <canvas id="energyStackedChart"></canvas>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sample Data
+            const buildings = ["Classrooms", "Labs", "Hostels", "Canteens & Mess"];
+            const energyData = [25, 20, 35, 20];
+            const timeLabels = ["8:00", "10:00", "12:00", "15:00", "18:00", "20:00"];
+            const consumptionData = [500, 700, 850, 600, 950, 400];
+            const stackedData = {
+                labels: timeLabels,
+                datasets: [
+                    { label: "Classrooms", data: [400, 500, 600, 200, 0, 0], backgroundColor: "#FF6384" },
+                    { label: "Labs", data: [300, 400, 500, 100, 0, 0], backgroundColor: "#36A2EB" },
+                    { label: "Hostels", data: [0, 0, 0, 300, 500, 700], backgroundColor: "#FFCE56" },
+                    { label: "Canteens & Mess", data: [100, 200, 250, 150, 450, 200], backgroundColor: "#4BC0C0" }
+                ]
+            };
+            
+            // Pie Chart
+            new Chart(document.getElementById("energyPieChart"), {
+                type: "pie",
+                data: {
+                    labels: buildings,
+                    datasets: [{ data: energyData, backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"] }]
+                }
+            });
+            
+            // Bar Chart
+            new Chart(document.getElementById("energyBarChart"), {
+                type: "bar",
+                data: {
+                    labels: timeLabels,
+                    datasets: [{ label: "Energy Consumption (kW)", data: consumptionData, backgroundColor: "#36A2EB" }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+            
+            // Stacked Bar Chart
+            new Chart(document.getElementById("energyStackedChart"), {
+                type: "bar",
+                data: stackedData,
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { x: { stacked: true }, y: { stacked: true } }
+                }
+            });
+        });
+    </script>
+    <script src="script3.js"></script>
+    <footer>
+        <footer>
+            <div class="footer-top">
+                <h3>About</h3>
+                <p>Our campus is dedicated to sustainable and smart solutions.</p>
+            </div>
+            
+        
+            
+        
+        </footer>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <a href="remote_control.html">Remote Control</a>
+                <a href="live_energy.html">Live Energy Status</a>
+                <a href="rewards.html">Leaderboard</a>
+                <a href="feedback.html">Feedback</a>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: support@smartcampus.com</p>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 EnergiX Innovators. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

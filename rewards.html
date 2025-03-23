@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a192f;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: flicker 1.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { text-shadow: 0 0 10px #ff0095, 0 0 20px #00ff00; }
+            100% { text-shadow: 0 0 5px #00ffdd, 0 0 15px #00ff00; }
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin: 15px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #f200ffaa;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .leaderboard {
+            margin-top: 30px;
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 10px #0f90bb;
+        }
+    </style>
+    <script>
+        function navigateTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <h1 class="title">Energy Rewards</h1>
+    <div class="container">
+        <div class="card" onclick="navigateTo('leaderboard-section')">
+            <i class="fas fa-trophy icon"></i>
+            <h3>Leaderboard Rankings</h3>
+            <p>Track your department’s energy efficiency rank.</p>
+        </div>
+        <div class="card" onclick="navigateTo('points-section')">
+            <i class="fas fa-coins icon"></i>
+            <h3>Energy Credit Points</h3>
+            <p>Earn points for sustainable energy usage.</p>
+        </div>
+        <div class="card" onclick="navigateTo('recognition-section')">
+            <i class="fas fa-bullhorn icon"></i>
+            <h3>Recognition</h3>
+            <p>Get featured on the college website & newsletter.</p>
+        </div>
+        <div class="card" onclick="navigateTo('scholarship-section')">
+            <i class="fas fa-graduation-cap icon"></i>
+            <h3>Scholarships & Bonuses</h3>
+            <p>Win scholarships and green incentive bonuses.</p>
+        </div>
+    </div>
+    <div id="leaderboard-section" class="section">
+        <h2>Current Top Departments</h2>
+        <canvas id="leaderboardChart"></canvas>
+        <script>
+            const ctx = document.getElementById('leaderboardChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering'],
+                    datasets: [{
+                        label: 'Energy Efficiency Score',
+                        data: [85, 75, 65],
+                        backgroundColor: ['#ffcc00', '#00ccff', '#ff6666'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+    <div id="points-section" class="section">
+        <h2>Energy Credit Points</h2>
+        <p>Earn points based on energy-saving actions.</p>
+    </div>
+    <div id="recognition-section" class="section">
+        <h2>Recognition</h2>
+        <p>Get featured in college news and website for your contributions.</p>
+        <img src="news.jpeg" alt="newsletter" class="content-image right" />
+    </div>
+    <div id="scholarship-section" class="section">
+        <h2>Scholarships & Bonuses</h2>
+        <p>Scholarships and green bonuses for top energy savers.</p>
+    </div>
+</body>
+</html>
